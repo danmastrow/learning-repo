@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from './reducers/CounterReducer';
+const rootReducer = combineReducers({ counterReducer: counterReducer });
 const store = configureStore({
-  reducer: counterReducer
+  reducer: rootReducer
 });
 // if (process.env.NODE_ENV === 'development' && module.hot) {
 //   module.hot.accept('./rootReducer', () => {

@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CounterState, addCount } from '../store/reducers/CounterReducer';
+import { addCount, CounterState } from '../store/reducers/CounterReducer';
 
 export const IncrementButton = () => {
   const dispatch = useDispatch();
 
-  const openIssueCount = useSelector((state: CounterState) => state.count);
+  const openIssueCount = useSelector(
+    (state: { counterReducer: CounterState }) => state.counterReducer.count
+  );
   return (
     <div>
       <button
