@@ -1,10 +1,11 @@
-import { ofType } from 'redux-observable';
-import { mapTo } from 'rxjs/operators';
+import { ofType } from "redux-observable";
+import { map, delay } from "rxjs/operators";
+import { ping, pong } from "../reducers/PingPongReducer";
 const pingEpic = (action$: any) =>
   action$.pipe(
-    ofType('pingPong/ping'),
-    // delay(1000), // Asynchronously wait 1000ms then continue
-    mapTo('pingPong/pong')
+    ofType(ping),
+    delay(1000),
+    map(() => pong())
   );
 
 export default pingEpic;
