@@ -15,7 +15,9 @@ const filmsEpic = (action$: any) =>
     mergeMap(() =>
       ajax.getJSON(`https://swapi.co/api/films/?format=json`).pipe(
         map((response: any) => {
-          return getFilmsSuccess(response.results as Film[]);
+          const films = response.results as Film[];
+          films.sort((film1, film2) => film1.episode_id - film2.episode_id);
+          return getFilmsSuccess(films);
         }),
         catchError(error => of(getFilmsFailure()))
         // Here we placed the catchError() inside our mergeMap(), but after our AJAX call;
