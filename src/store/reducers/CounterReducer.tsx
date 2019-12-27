@@ -7,14 +7,14 @@ export interface CounterState {
 const initialState: CounterState = {
   count: 8
 };
-const counterReducer = createSlice({
+const counter = createSlice({
   name: 'counter',
   initialState: initialState,
   reducers: {
     addCount(state: CounterState, action: PayloadAction<number>) {
-      state.count++;
+      state.count += action.payload;
     }
   }
 });
-export const { addCount } = counterReducer.actions;
-export default counterReducer.reducer;
+export const { addCount } = counter.actions;
+export default counter.reducer;

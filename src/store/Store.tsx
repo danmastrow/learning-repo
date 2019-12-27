@@ -1,14 +1,19 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from './reducers/CounterReducer';
-const rootReducer = combineReducers({ counterReducer: counterReducer });
+import counter from './reducers/CounterReducer';
+import pingPong from './reducers/PingPongReducer';
+import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import pingEpic from './epics/pingEpic';
+const epicMiddleware = createEpicMiddleware();
+
+const rootReducer = combineReducers({ counter, pingPong });
+const rootEpic = combineEpics(pingEpic);
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware: [epicMiddleware]
 });
-// if (process.env.NODE_ENV === 'development' && module.hot) {
-//   module.hot.accept('./rootReducer', () => {
-//     const newRootReducer = require('./rootReducer').default;
-//     store.replaceReducer(newRootReducer);
-//   });
-// }
+epicMiddleware.run(rootEpic);
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 export type AppDispatch = typeof store.dispatch;
 export default store;

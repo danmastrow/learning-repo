@@ -1,5 +1,5 @@
 # Narnok Web
 
-### To push changes to gcloud use `npm run build && gcloud app deploy`
+### To push changes to gcloud use `yarn run build && gcloud app deploy`
 
-### Redux is using
+### Redux is using redux-toolkit

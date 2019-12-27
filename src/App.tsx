@@ -1,16 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { IncrementButton } from './components/IncrementButton';
-
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import Body from './components/layout/Body';
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Narnok</p>
-        <IncrementButton />
-      </header>
+    <div>
+      <Body />
     </div>
   );
 };

@@ -1,22 +1,21 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addCount, CounterState } from '../store/reducers/CounterReducer';
+import { Button } from 'antd';
+import { useDispatch } from 'react-redux';
+import { ping } from '../store/reducers/PingPongReducer';
 
 export const IncrementButton = () => {
   const dispatch = useDispatch();
 
-  const openIssueCount = useSelector(
-    (state: { counterReducer: CounterState }) => state.counterReducer.count
-  );
+  // const openIssueCount = useSelector((state: RootState) => state.counter.count);
   return (
     <div>
-      <button
+      <Button
         onClick={() => {
-          dispatch(addCount(5));
+          dispatch(ping());
         }}
       >
-        {openIssueCount}
-      </button>
+        Ping
+      </Button>
     </div>
   );
 };
