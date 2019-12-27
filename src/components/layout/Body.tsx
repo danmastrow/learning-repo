@@ -1,54 +1,73 @@
-import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
-import { IncrementButton } from '../IncrementButton';
+import React from "react";
+import { Layout, Menu, Icon } from "antd";
+import SubMenu from "antd/lib/menu/SubMenu";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/Store";
+import { toggleSidebar } from "../../store/reducers/LayoutReducer";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const Body = () => {
+  const dispatch = useDispatch();
+
+  const { sidebarCollapsed } = useSelector((state: RootState) => state.layout);
+  const { films } = useSelector((state: RootState) => state.films);
+
   return (
-    <Layout>
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0
-        }}
+        collapsible
+        collapsed={sidebarCollapsed}
+        onCollapse={() => dispatch(toggleSidebar())}
       >
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        {/* TODO: SW logo here <div className="logo" /> */}
+        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1">
-            <Icon type="user" />
-            <span className="nav-text">nav 1</span>
+            <Icon type="pie-chart" />
+            <span>Option 1</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="video-camera" />
-            <span className="nav-text">nav 2</span>
+            <Icon type="desktop" />
+            <span>Option 2</span>
           </Menu.Item>
-          <Menu.Item key="3">
-            <Icon type="upload" />
-            <span className="nav-text">nav 3</span>
+          <SubMenu
+            key="sub1"
+            title={
+              <span>
+                <Icon type="user" />
+                <span>User</span>
+              </span>
+            }
+          >
+            <Menu.Item key="3">Tom</Menu.Item>
+            <Menu.Item key="4">Bill</Menu.Item>
+            <Menu.Item key="5">Alex</Menu.Item>
+          </SubMenu>
+
+          <Menu.Item key="9">
+            <Icon type="file" />
+            <span>File</span>
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout style={{ marginLeft: 200 }}>
-        <Header style={{ background: '#fff', padding: 0 }} />
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <IncrementButton />
-          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-            Content
+      <Layout>
+        <Header style={{ background: "#fff", padding: 0 }} />
+        <Content style={{ margin: "0 16px" }}>
+          {/* TODO: Breadcrumb here <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb> */}
+          <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+            {films.map(film => {
+              return (
+                <div>
+                  Episode {film.episode_id} - {film.title}
+                </div>
+              );
+            })}
           </div>
         </Content>
-        <Footer
-          style={{
-            overflow: 'auto',
-
-            width: '100%',
-            position: 'fixed',
-            bottom: 0
-          }}
-        >
-          Narnok ©2019
-        </Footer>
+        <Footer style={{ textAlign: "center" }}>Narnok ©2019</Footer>
       </Layout>
     </Layout>
   );
