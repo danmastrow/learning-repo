@@ -16,7 +16,7 @@ const initialState: FilmsState = {
   loading: false,
   errored: false
 };
-// TODO: turn this into a generic slice creation, getX, getXSuccess, getXFailure
+// TODO: turn this into a generic slice creation for getting data from api, getX, getXSuccess, getXFailure
 const films = createSlice({
   name: "films",
   initialState: initialState,
