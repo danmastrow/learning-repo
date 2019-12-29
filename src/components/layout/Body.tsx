@@ -3,7 +3,6 @@ import {
   Layout,
   Menu,
   Icon,
-  Button,
   Breadcrumb,
   Card,
   Row,
@@ -11,14 +10,13 @@ import {
   Skeleton,
   Avatar
 } from "antd";
-import SubMenu from "antd/lib/menu/SubMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/Store";
 import { toggleSidebar } from "../../store/reducers/LayoutReducer";
-import ButtonGroup from "antd/lib/button/button-group";
 import Meta from "antd/lib/card/Meta";
+import FilmCards from "../film-cards/FilmCards";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -33,7 +31,6 @@ const Body = () => {
         collapsed={sidebarCollapsed}
         onCollapse={() => dispatch(toggleSidebar())}
       >
-        {/* <div className="logo" /> */}
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1">
             <Icon type="video-camera" />
@@ -48,30 +45,7 @@ const Body = () => {
             <Breadcrumb.Item>Films</Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-            <Row gutter={16}>
-              {!loading ? (
-                films.map(film => {
-                  const title = `Episode ${film.episode_id} - ${film.title}`;
-                  return (
-                    <Col span={8}>
-                      <Card title={title} bordered={true}>
-                        Content here
-                      </Card>
-                    </Col>
-                  );
-                })
-              ) : (
-                <Skeleton loading={loading} avatar active>
-                  <Meta
-                    avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                    }
-                    title="Card title"
-                    description="This is the description"
-                  />
-                </Skeleton>
-              )}
-            </Row>
+            <FilmCards films={films} loading={loading} />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Narnok ©2019</Footer>
