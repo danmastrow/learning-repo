@@ -1,1 +1,1 @@
-npm version patch && yarn run build && gcloud app deploy
+npm version patch && yarn run build && gcloud app deploy --quiet
